@@ -16,7 +16,7 @@ This flask project is created using the template provided by NEXT ACADEMY (refer
 
 This flask project has API endpoint for another React project called [Reactstagramme](https://github.com/elitetai), which shares the same database (e.g. user info, image url path).
 
-Deployed under **[Heroku]**(https://flaskstagram.herokuapp.com/)
+Deployed under **[Heroku](https://flaskstagram.herokuapp.com/)**
 
 ---
 
