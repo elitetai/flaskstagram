@@ -10,20 +10,21 @@ This flask project is created using the template provided by NEXT ACADEMY (refer
 1. Another user can `donate` (or make payment) via **Braintree** 
 1. (Not testable, but it is working) User will receive an email via **Mailgun**
 
-**Others features**
-CSRF enabled, PostgreSQL Database
+**Others features**: CSRF enabled, PostgreSQL Database
 
 **Additional Info** 
+
 This flask project has API endpoint for another React project called [Reactstagramme](https://github.com/elitetai), which shares the same database (e.g. user info, image url path).
 
-Deployed under **[Netlify]**()
+Deployed under **[Heroku]**()
 
 ---
 
 ### Notes:
 > This repository template belongs to [NEXT Academy](https://github.com/NextAcademy/curriculum-nextagram-template) and is a part of NEXT Academy's coding bootcamps
 
-**Dependencies Installation**
+
+## Dependencies Installation
 
 - Python 3.7.2 was tested
 - Postgresql 10.3 was tested
