@@ -38,5 +38,5 @@ def before_request():
 def _db_close(exc):
     if not db.is_closed():
         print(db)
-        # print(db.close())
+        print(db.close())
         return exc 
