@@ -1,7 +1,7 @@
 from app import app, csrf
 from flask_cors import CORS
 
-cors = CORS(app, resources={r"/api/*": {"origins": "http://localhost:*"}})
+cors = CORS(app, resources={r"/api/*": {"origins": ["http://localhost:*", "https://reactstagramme.netlify.app"]}})
 
 ## API Routes ##
 from flaskstagram_api.blueprints.users.views import users_api_blueprint
