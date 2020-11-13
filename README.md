@@ -12,7 +12,7 @@ This flask project is created using the template provided by NEXT ACADEMY (refer
 
 **Others features**: CSRF enabled, PostgreSQL Database
 
-**Additional Info** 
+**Additional Info:** 
 
 This flask project has API endpoint for another React project called [Reactstagramme](https://github.com/elitetai), which shares the same database (e.g. user info, image url path).
 
