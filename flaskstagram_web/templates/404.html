@@ -1,0 +1,11 @@
+{% extends "_layout.html" %}
+
+{% block title %}Page Not Found{% endblock %}
+{% block content %}
+<div class="jumbotron bg-light text-center">
+  <h1 class="display-4">Page Not Found</h1>
+  <p class="lead">Ops! What you were looking for is just not there.</p>
+  <hr class="my-4">
+  <a class="btn btn-primary btn-lg" href="{{ url_for('home') }}" role="button">Let's go somewhere nice</a>
+</div>
+{% endblock %}

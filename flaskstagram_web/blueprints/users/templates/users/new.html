@@ -1,0 +1,23 @@
+{% extends '_layout.html' %}
+
+{% block content %}
+<div class="container">
+    <h1>Sign Up</h1>
+    <form action="{{url_for('users.create')}}" method="POST">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/> 
+        <label name="username">Username</label>
+            <input type="text" name="username" >
+        <br>
+        <label name="email">Email</label>
+            <input type="email" name="email">
+        <br>
+        <label name="password">Password</label>
+            <input type="password" name="password">
+        <br>
+        <label for="private">Set Profile To Private?</label>
+            <input type="checkbox" name="private" value="False">
+        <br>
+        <input type="submit">
+    </form>
+</div>
+{% endblock %}

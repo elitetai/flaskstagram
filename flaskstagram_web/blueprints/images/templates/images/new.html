@@ -1,0 +1,17 @@
+{% extends '_layout.html' %}
+
+{% block content %}
+{% if current_user.is_authenticated %}
+<div class="container">
+    <h2>Upload Your Picture</h2>
+    <form action="{{url_for('images.upload', id=current_user.id)}}" method="POST" enctype="multipart/form-data">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+        <label for="user_file"></label>
+        <br></br>
+        <input type="file" name="gallery_image">
+        <br></br>
+        <button type="submit">Upload</button>
+    </form>
+    {% endif %}
+</div>
+{% endblock %}

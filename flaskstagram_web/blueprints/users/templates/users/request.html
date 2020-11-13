@@ -1,0 +1,62 @@
+{% extends "_layout.html" %}
+{% block content %}
+
+<div class="container">
+  <br>
+  <ul class="list-group">
+    <h5>{{user.username}}'s Idols</h5>
+      {% for idol in user.idols %}
+        <li class="list-group-item">{{idol.username}}</li>       
+      {% else %}
+        <li class="list-group-item">No idols found</li>
+      {% endfor %}
+  </ul>
+  <br>
+  <ul class="list-group">
+    <h5>{{user.username}}'s Fans</h5>
+      {% for fan in user.fans %}
+        <li class="list-group-item">{{fan.username}}</li>
+      {% else %}
+        <li class="list-group-item">No fans found</li>
+      {% endfor %}
+  </ul>
+  <br>
+  {# idol request that pending approval from idol #}
+  <ul class="list-group">
+    <h5>Pending approval from {{user.username}}'s idols</h5>
+    {% for request in user.idol_requests %}
+    <li class="list-group-item d-flex">
+      {{request.username}} &nbsp;
+      <form action="{{url_for('users.unfollow',idol_id=request.id)}}" method="POST">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+        <input type="submit" class="btn btn-sm btn-outline-primary" value="Delete Request">
+      </form>
+    </li>
+      {% else %}
+    <li class="list-group-item">No request found</li>
+      {% endfor %}
+  </ul>
+  <br>
+
+  {# fan request that pending your approval #}
+  <ul class="list-group">
+    <h5>Pending approval from {{user.username}} for fans</h5>
+    {% for request in user.fan_requests %}
+    <li class="list-group-item d-flex">
+      {{request.username}} &nbsp;
+      <form action="{{url_for('users.approve',fan_id=request.id)}}" method="POST">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+        <input type="submit" class="btn btn-sm btn-outline-primary" value="Approve">
+      </form>
+      <form action="{{url_for('users.delete_request',fan_id=request.id)}}" method="POST">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+        <input type="submit" class="btn btn-sm btn-outline-danger" value="Delete">
+      </form>
+    </li>
+      {% else %}
+    <li class="list-group-item">No request found</li>
+      {% endfor %}
+  </ul>
+
+</div>  
+{% endblock %}

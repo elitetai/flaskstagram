@@ -1,0 +1,100 @@
+{% extends "_layout.html" %}
+
+{% block content %}
+<div class="d-flex justify-content-center">
+  <div class="col-3 text-center">
+    <img src="{{user.full_image_path}}" class="img-thumbnail rounded-circle" width="200"/>
+    <h6>@{{user.username}}</h6>
+    {# only show if current user is the owner of profile #}
+    {% if current_user.id == user.id %}
+      <a class="btn btn-sm btn-outline-secondary" href="{{url_for('users.edit',id=user.id)}}">Edit Profile</a>
+      <br>
+      <a class="btn btn-sm btn-outline-secondary" href="{{url_for('users.show_request',id=user.id)}}">Fans & Idols</a>
+      <br> 
+      <a class="btn btn-sm btn-outline-secondary" href="{{url_for('images.new')}}">Upload Image</a>
+    {% else %}
+      {# give different tag based on follow status #}
+      {% if fanidol.is_approved %}
+        <form action="{{url_for('users.unfollow',idol_id=user.id)}}" method="POST">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+          <input type="submit" class="btn btn-sm btn-success" id="following" value="Following" style="width: 150px;">
+        </form>
+      {% elif not fanidol.is_approved and current_user.follow_status(user) %}
+        <form action="{{url_for('users.unfollow',idol_id=user.id)}}" method="POST">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+          <input type="submit" class="btn btn-sm btn-warning" id="pending_approval" value="Pending Approval" style="width: 150px;">
+        </form>
+      {% else %}
+        <form action="{{url_for('users.follow',idol_id=user.id)}}" method="POST">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+          <input type="submit" class="btn btn-sm btn-outline-primary" value="Follow">
+        </form>
+      {% endif %}
+    {% endif %}
+      
+  </div>
+</div>
+<br>
+<div class="container-fluid row">
+  {% if current_user.id == user.id or not user.is_private or fanidol.is_approved%}
+  {% if user.sorted_images %}
+  {% for image in user.sorted_images %}
+    <div class="col-lg-6 col-md-12">
+      <div class="card-deck">
+        <div class="card mt-3 shadow" style="width: 18rem;">
+          {% if current_user.id == user.id %}
+          <div class="card-body">
+          <a href="{{url_for('images.show',image_id=image.id)}}">
+            <img src="{{image.full_image_url}}" width="100%" class="card-img-top"/></a>
+          </div>
+          {% else %}
+          <div class="card-body">
+            <img src="{{image.full_image_url}}" width="100%" class="card-img-top"/>
+            <a class="btn btn-primary d-block mx-auto" href="{{url_for('payments.new',image_id=image.id)}}">Donate</a>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+      {% endfor %}
+    {% else %}
+    <p class="mx-auto">No image to display</p>
+    {% endif %}
+  {% else %}
+    {# check if current user have sent following request #}
+    {% if not current_user.follow_status(user) %}
+    <span class="mx-auto">This profile is private. Follow @{{user.username}} to continue.</span>
+    {% else %}
+    <span class="mx-auto">Please wait for {{user.username}}'s approval.</span>
+    {% endif %}
+  {% endif %}
+</div>
+
+<script>
+  pending = document.getElementById('pending_approval')
+  following = document.getElementById('following')
+
+  if (pending){
+    pending.addEventListener('mouseover', () => mouseOver(pending))
+    pending.addEventListener('mouseout', () => {
+      pending.setAttribute('value', 'Pending Approval')
+      pending.setAttribute('class', 'btn btn-sm btn-warning')
+    })
+  }
+
+  if (following){
+    following.addEventListener('mouseover', () => mouseOver(following))
+    following.addEventListener('mouseout', () => {
+      following.setAttribute('value', 'Following')
+      following.setAttribute('class', 'btn btn-sm btn-success')
+    })
+  }
+  
+  function mouseOver(e){
+    e.setAttribute('value', 'Unfollow')
+    e.setAttribute('class', 'btn btn-sm btn-outline-danger')
+  }
+
+</script>
+{% endblock %}
+

@@ -1,0 +1,16 @@
+{% extends '_layout.html' %}
+
+{% block content %}
+<div class="container">
+    <form action="{{url_for('sessions.login')}}" method="POST" >
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+        <h1>Login</h1>
+        <label name="username">Username</label>
+            <input type="text" name="username" /><br>
+        <label name="password">Password</label>
+            <input type="password" name="password" /><br>
+        <input type="submit"/>
+    </form>
+    <a class="nav-link" href="{{url_for('sessions.google_login')}}">Log In With Google</a>
+</div>
+{% endblock %}

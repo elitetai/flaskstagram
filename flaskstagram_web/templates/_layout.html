@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/favicon.png') }}">
+
+    {% assets "home_css" %}
+      <link rel="stylesheet" href="{{ ASSET_URL }}">
+    {% endassets %}
+
+    {% assets "home_js" %}
+      <script type="text/javascript" src="{{ ASSET_URL }}"></script>
+    {% endassets %}
+
+    {% block header %}
+    {% endblock %}
+
+    <title>
+
+      {% block title %}
+      {% endblock %} | FLASKSTAGRAM
+    </title>
+
+  </head>
+  <body>
+
+    {# navbar start #}
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
+      <a class="navbar-brand" href="{{url_for('home')}}">
+        <img src="{{ url_for('static', filename='images/favicon.png') }}"> Flaskstagram</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto">
+          {%  if current_user.is_authenticated %}
+          <li class="nav-item">
+            <a class="nav-link" href="{{url_for('users.show',username=current_user.username)}}">Profile</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{url_for('sessions.logout')}}">Logout</a>
+          </li>
+          {% else %}
+          <li class="nav-item">
+            <a class="nav-link" href="{{url_for('users.new')}}">Sign Up</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{url_for('sessions.new')}}">Log In</a>
+          </li>
+          {% endif %}
+        </ul>
+      </div>
+    </nav>
+    {# navbar end #}
+
+    {# flash message #}
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="alert alert-{{category}}" role="alert">{{ message }}</div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    {% block content %}
+    {% endblock %}
+    <footer>
+    </footer>
+  </body>
+</html>
+
+<script type="text/javascript">
+message = document.querySelector('.alert')
+if (message){window.setTimeout("message.style.display='none'", 2000)}
+</script>

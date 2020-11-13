@@ -1,0 +1,21 @@
+{% extends '_layout.html' %}
+
+{% block content %}
+<div class="container">
+  <h1 class="text-center">Payment for this image</h1>
+  <div class="card-deck row justify-content-md-center">
+      <div class="card" style="width: 300px;">
+      <img src="{{image.full_image_url}}" class="card-img-top" width="300px">
+      <div class="card-body">
+        {% if image.payments %}
+        <ul class="card-text list-group">
+          {% for payment in image.payments %}
+            <li class="list-group-item">{{payment.sender.username}} : RM{{payment.amount}}</li>
+          {% endfor %}
+        </ul>
+        {% else %}
+        <p class="card-text text-center">No payment received</p>
+        {% endif %}
+      </div>
+  
+{% endblock %}

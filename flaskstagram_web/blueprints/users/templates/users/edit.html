@@ -1,0 +1,54 @@
+{% extends '_layout.html' %}
+
+{% block content %}
+<div class="container">
+    <form action="{{url_for('users.update', id=user.id)}}" method="POST">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+        <h2>Update Your Details</h2>
+        <label> New Username</label>
+            <input type="text" name="username" value="{{user.username}}">
+            <br>
+        <label> New Email</label>
+            <input type="email" name="email" value="{{user.email}}">
+            <br>
+        <label> New Password (Leave it empty if use same password)</label>
+            <input type="password" name="password">
+        <br>
+        <label for="private">Set Profile to Private</label>
+        <input type="checkbox" id="private" name="private" {{ 'checked' if user.is_private }}>
+        <br/>
+        <input type="submit" />
+    </form>
+    <br><br>
+
+    <h2>Upload Your Profile Picture</h2>
+    <form action="{{url_for('users.upload', id=user.id)}}" method="POST" enctype="multipart/form-data">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+        <label for="user_file"></label>
+        <br></br>
+        <input type="file" name="profile_image">
+        <br></br>
+        <button type="submit">Upload</button>
+    </form>
+</div>
+<br><br>
+
+{% if user.email == "admin@admin.com" %}
+<div class="container">
+    <h2>Delete User</h2>
+    <form action="{{url_for('users.delete', id=user.id)}}" method="POST" >
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+        <label>Targeted Username</label>
+            <input type="text" name="username">
+        <br>
+        <label>Targeted Email</label>
+            <input type="email" name="email">
+        <br>
+        <label> Your Password</label>
+            <input type="password" name="password">
+        <br/>
+        <input type="submit" />
+    </form>
+</div>
+{% endif %}
+{% endblock %}

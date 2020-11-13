@@ -1,0 +1,12 @@
+{% extends "_layout.html" %}
+
+{% block title %}CSRF Error{% endblock %}
+{% block content %}
+<div class="jumbotron bg-light text-center">
+  <h1 class="display-4">CSRF Error</h1>
+  <p class="lead">Ops! There's an error. Please relog in again.</p>
+  <hr class="my-4">
+    <p>Reason: {{reason}}</p>
+  <a class="btn btn-primary btn-lg" href="{{ url_for('home') }}" role="button">Let's go somewhere nice</a>
+</div>
+{% endblock %}
