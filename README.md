@@ -14,12 +14,12 @@ This flask project is created using the template provided by NEXT ACADEMY (refer
 
 **Additional Info:** 
 You can login to test the features with below user:
-Username: Private1
-Password: Private1##
+> Username: Private1
+> Password: Private1##
 
 This flask project has API endpoint for another React project called [Reactstagramme](https://github.com/elitetai/reactstagramme), which shares the same database (e.g. user info, image url path).
 
-Deployed under **[Heroku](https://flaskstagram.herokuapp.com/)** (Please wait for it to start up from its dormant state)
+Deployed under Heroku. **[Click Here](https://flaskstagram.herokuapp.com/)** (Please wait for it to start up from its dormant state)
 
 ---
 
